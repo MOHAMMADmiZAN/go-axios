@@ -1,0 +1,52 @@
+name: Go Test and Lint Workflow
+
+# Trigger the workflow on push to the main branch or on pull requests
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+# Define jobs
+jobs:
+  test:
+    # Specify the environment where this job runs
+    runs-on: ubuntu-latest
+
+    # Use a matrix to test across multiple Go versions
+    strategy:
+      matrix:
+        go-version: [1.23.1]  # This matches the Go version in go.mod
+
+    # Job steps to execute the workflow tasks
+    steps:
+      # Step 1: Check out the repository code into the GitHub Actions runner
+      - name: Check out the repository
+        uses: actions/checkout@v2
+
+      # Step 2: Set up the Go environment with the specified Go version from the matrix
+      - name: Set up Go environment
+        uses: actions/setup-go@v2
+        with:
+          go-version: ${{ matrix.go-version }}
+
+      # Step 3: Ensure Go module dependencies are up-to-date and properly installed
+      - name: Install Go dependencies
+        run: go mod tidy
+
+      # Step 4: Run Go linter to check for code issues and inconsistencies using go vet
+      - name: Run Go linter (go vet)
+        run: go vet ./...
+
+      # Step 5: Run the Go test suite in verbose mode, and capture output in a test results file
+      - name: Run Go tests
+        run: go test -v ./... | tee go-test-results.txt
+
+      # Step 6: Upload the test results as an artifact for post-job analysis and downloading
+      - name: Upload Go test report
+        uses: actions/upload-artifact@v3  # Updated to v3
+        with:
+          name: go-test-results
+          path: go-test-results.txt
