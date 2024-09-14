@@ -19,7 +19,7 @@ Go-Axios is a Golang HTTP client inspired by Axios JS. It's not an official pack
 To install the `go-axios` package, run:
 
 ```bash
-go get github.com/MOHAMMADmiZAN/go-axios/axios
+go get github.com/MOHAMMADmiZAN/go-axios/axios@v1.1.0
 ```
 
 ---
