@@ -248,7 +248,7 @@ For more advanced usage and customization, feel free to check out the examples i
 ---
 
 ### To Summarize:
-- **Install**: `go get github.com/MOHAMMADmiZAN/go-axios/axios`
+- **Install**: `go get -u github.com/MOHAMMADmiZAN/go-axios/axios`
 - **Simple HTTP requests**: Easily perform GET, POST, PUT, DELETE, etc.
 - **Customizable**: Support for timeouts, interceptors, and custom transport.
 - **Error Handling**: Detailed error reporting to assist debugging.
